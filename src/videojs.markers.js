@@ -52,7 +52,7 @@
       /**
        * register the markers plugin (dependent on jquery)
        */
-   
+
       var setting      = $.extend(true, {}, defaultSetting, options),
           markersMap   = {},
           markersList  = [], // list of markers sorted by time
@@ -92,12 +92,19 @@
       
       function createMarkerDiv(marker, duration) {
          var markerDiv = $("<div class='vjs-marker'></div>")
-         markerDiv.css(setting.markerStyle)
-            .css({"margin-left" : -parseFloat(markerDiv.css("width"))/2 + 'px', 
-               "left" : getPosition(marker) + '%'})
-            .attr("data-marker-key", marker.key)
-            .attr("data-marker-time", setting.markerTip.time(marker));
-            
+
+         if(typeof setting.markerStyle === 'function') {
+            markerDiv.css(setting.markerStyle(marker));
+         } else {
+            markerDiv.css(setting.markerStyle);
+         }
+
+         markerDiv
+         .css({"margin-left" : -parseFloat(markerDiv.css("width"))/2 + 'px', 
+            "left" : getPosition(marker) + '%'})
+         .attr("data-marker-key", marker.key)
+         .attr("data-marker-time", setting.markerTip.time(marker));
+         
          // add user-defined class to marker
          if (marker.class) {
             markerDiv.addClass(marker.class);
