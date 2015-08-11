@@ -248,7 +248,7 @@
          var currentTime = player.currentTime();
          var newMarkerIndex;
          
-         if (currentMarkerIndex != -1) {
+         if (currentMarkerIndex && currentMarkerIndex != -1) {
             // check if staying at same marker
             var nextMarkerTime = getNextMarkerTime(currentMarkerIndex);
             if(currentTime >= setting.markerTip.time(markersList[currentMarkerIndex]) &&
